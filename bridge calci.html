@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Paper Bag Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>Paper Bag Calculator</h1>
+    
+    <form id="inputForm">
+        <label for="thickness">Enter the thickness of paper (in mm):</label>
+        <input type="number" id="thickness" name="thickness" step="0.001">
+        
+        <label for="finallength">Enter the length of paper bag (in mm):</label>
+        <input type="number" id="finallength" name="finallength">
+        
+        <button type="button" onclick="calculatePaperLength()">Calculate</button>
+    </form>
+
+    <div id="output"></div>
+
+    <script>
+        function calculatePaperLength() {
+            // Get user input values
+            var thickness = parseFloat(document.getElementById("thickness").value);
+            var finallength = parseFloat(document.getElementById("finallength").value);
+
+            // Check if input values are valid
+            if (isNaN(thickness) || isNaN(finallength)) {
+                alert("Please enter valid numerical values.");
+                return;
+            }
+
+            // Perform the calculations
+            var foldwidth;
+            if (thickness >= 0.100 && thickness <= 0.25) {
+                foldwidth = 7;
+            } else if (thickness > 0.25 && thickness < 0.5) {
+                foldwidth = 10;
+            } else if (thickness > 0.5 && thickness <= 1) {
+                foldwidth = 15;
+            } else {
+                alert("Note: Thickness below 0.100 and above 1 is not recommended.");
+                return;
+            }
+
+            var half = 0.382683 * foldwidth;
+            var full = half * 2;
+            var numoffolds = finallength / full;
+            var actuallength = numoffolds * (foldwidth * 2);
+
+            // Display the results
+            var outputText = "The Actual length of the paper needed to be taken is: " + actuallength + " mm<br>";
+            outputText += "The fold width of the paper is: " + foldwidth + " mm<br>";
+            outputText += "Number of folds needed to be folded is: " + numoffolds;
+            
+            document.getElementById("output").innerHTML = outputText;
+        }
+    </script>
+     <div class="container">
+        <footer class="py-3 my-4">
+          <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="./index.html" class="nav-link px-2 text-body-secondary">Home</a></li>
+            <li class="nav-item"><a href="./contact us.html" class="nav-link px-2 text-body-secondary">Contact Us</a></li>
+          </ul>
+          <p class="text-center text-body-secondary">© 2023 Company, Inc</p>
+        </footer>
+      </div>
+</body>
+</html>
